@@ -160,6 +160,8 @@ func (s *ResourceStorage) genGetObjectQuery(ctx context.Context, cluster, namesp
 }
 
 func (s *ResourceStorage) Get(ctx context.Context, cluster, namespace, name string, into runtime.Object) error {
+	klog.InfoS("get a resource in the sample storage layer", "gvr", s.storageGroupResource)
+
 	var objects [][]byte
 	if result := s.genGetObjectQuery(ctx, cluster, namespace, name).First(&objects); result.Error != nil {
 		return InterpretResourceDBError(cluster, namespace+"/"+name, result.Error)
@@ -192,7 +194,8 @@ func (s *ResourceStorage) genListObjectsQuery(ctx context.Context, opts *interna
 }
 
 func (s *ResourceStorage) List(ctx context.Context, listObject runtime.Object, opts *internal.ListOptions) error {
-	klog.InfoS("list resources in customstorage", "gvr", s.storageGroupResource)
+	klog.InfoS("list resources in the sample storage layer", "gvr", s.storageGroupResource)
+
 	offset, amount, query, result, err := s.genListObjectsQuery(ctx, opts)
 	if err != nil {
 		return err
