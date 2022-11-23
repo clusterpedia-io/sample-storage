@@ -10,8 +10,8 @@ github.com/clusterpedia-io/api/clusterpedia
 github.com/clusterpedia-io/api/clusterpedia/fields
 # github.com/clusterpedia-io/clusterpedia v0.0.0-00010101000000-000000000000 => ./clusterpedia
 ## explicit; go 1.19
-github.com/clusterpedia-io/clusterpedia/pkg/kubeapiserver/resourcescheme
-github.com/clusterpedia-io/clusterpedia/pkg/kubeapiserver/resourcescheme/unstructured
+github.com/clusterpedia-io/clusterpedia/pkg/scheme
+github.com/clusterpedia-io/clusterpedia/pkg/scheme/unstructured
 github.com/clusterpedia-io/clusterpedia/pkg/storage
 # github.com/docker/distribution v2.8.1+incompatible
 ## explicit
@@ -121,7 +121,7 @@ gopkg.in/yaml.v2
 # gorm.io/datatypes v1.0.7
 ## explicit; go 1.14
 gorm.io/datatypes
-# gorm.io/driver/mysql v1.4.3
+# gorm.io/driver/mysql v1.4.4
 ## explicit; go 1.14
 gorm.io/driver/mysql
 # gorm.io/driver/postgres v1.4.5
