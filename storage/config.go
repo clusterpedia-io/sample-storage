@@ -1,4 +1,4 @@
-package internalstorage
+package storage
 
 import (
 	"crypto/tls"

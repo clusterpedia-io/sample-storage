@@ -1,4 +1,4 @@
-package internalstorage
+package storage
 
 import (
 	"context"
@@ -13,6 +13,10 @@ import (
 
 type StorageFactory struct {
 	db *gorm.DB
+}
+
+func (s *StorageFactory) GetSupportedRequestVerbs() []string {
+	return []string{"get", "list"}
 }
 
 func (s *StorageFactory) NewResourceStorage(config *storage.ResourceStorageConfig) (storage.ResourceStorage, error) {

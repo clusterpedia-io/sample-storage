@@ -1,4 +1,4 @@
-package internalstorage
+package storage
 
 import (
 	"k8s.io/apimachinery/pkg/util/runtime"
@@ -18,7 +18,7 @@ func init() {
 	runtime.Must(utilfeature.DefaultMutableFeatureGate.Add(defaultInternalStorageFeatureGates))
 }
 
-// defaultInternalStorageFeatureGates consists of all known custom internalstorage feature keys.
+// defaultInternalStorageFeatureGates consists of all known custom storage feature keys.
 // To add a new feature, define a key for it above and add it here.
 var defaultInternalStorageFeatureGates = map[featuregate.Feature]featuregate.FeatureSpec{
 	AllowRawSQLQuery: {Default: false, PreRelease: featuregate.Alpha},

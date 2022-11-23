@@ -1,4 +1,4 @@
-package internalstorage
+package storage
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	SearchLabelFuzzyName = "internalstorage.clusterpedia.io/fuzzy-name"
+	SearchLabelFuzzyName = "storage.clusterpedia.io/fuzzy-name"
 
 	URLQueryWhereSQL = "whereSQL"
 )
