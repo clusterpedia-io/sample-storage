@@ -3,7 +3,6 @@ package storage
 import (
 	"context"
 
-	metainternalversion "k8s.io/apimachinery/pkg/apis/meta/internalversion"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
@@ -12,15 +11,20 @@ import (
 )
 
 type StorageFactory interface {
-	GetResourceVersions(ctx context.Context, cluster string) (map[schema.GroupVersionResource]map[string]interface{}, error)
+	// Currently only supports returning a union of verbs for all resources,
+	// in the future it may be necessary to return verbs depending on different resources.
+	GetSupportedRequestVerbs() []string
+
 	PrepareCluster(cluster string) error
-	CleanCluster(ctx context.Context, cluster string) error
-	CleanClusterResource(ctx context.Context, cluster string, gvr schema.GroupVersionResource) error
+
+	GetResourceVersions(ctx context.Context, cluster string) (map[schema.GroupVersionResource]map[string]interface{}, error)
+	GetCollectionResources(ctx context.Context) ([]*internal.CollectionResource, error)
 
 	NewResourceStorage(config *ResourceStorageConfig) (ResourceStorage, error)
 	NewCollectionResourceStorage(cr *internal.CollectionResource) (CollectionResourceStorage, error)
 
-	GetCollectionResources(ctx context.Context) ([]*internal.CollectionResource, error)
+	CleanCluster(ctx context.Context, cluster string) error
+	CleanClusterResource(ctx context.Context, cluster string, gvr schema.GroupVersionResource) error
 }
 
 type ResourceStorage interface {
@@ -28,7 +32,7 @@ type ResourceStorage interface {
 
 	Get(ctx context.Context, cluster, namespace, name string, obj runtime.Object) error
 	List(ctx context.Context, listObj runtime.Object, opts *internal.ListOptions) error
-	Watch(ctx context.Context, options *metainternalversion.ListOptions) (watch.Interface, error)
+	Watch(ctx context.Context, options *internal.ListOptions) (watch.Interface, error)
 
 	Create(ctx context.Context, cluster string, obj runtime.Object) error
 	Update(ctx context.Context, cluster string, obj runtime.Object) error
@@ -40,13 +44,15 @@ type CollectionResourceStorage interface {
 }
 
 type ResourceStorageConfig struct {
+	Namespaced bool
+
 	GroupResource        schema.GroupResource
 	StorageGroupResource schema.GroupResource
 
-	Codec          runtime.Codec
-	StorageVersion schema.GroupVersion
 	MemoryVersion  schema.GroupVersion
-	Namespaced     bool
+	StorageVersion schema.GroupVersion
+
+	Codec runtime.Codec
 }
 
 type storageRecoverableExceptionError struct {
