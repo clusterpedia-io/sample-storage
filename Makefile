@@ -1,8 +1,8 @@
-STORAGE_PLUGIN ?= sample-storage-layer
+STORAGE_PLUGIN ?= $(shell sed -n '1p' go.mod | awk '{print $$2}' | awk -F'/' '{print $$NF}')
 
 REGISTRY ?= "ghcr.io/clusterpedia-io/clusterpedia"
 CLUSTERPEDIA_BUILDER_IMAGE = "ghcr.io/clusterpedia-io/clusterpedia/builder"
-CLUSTERPEDIA_VERSIONS = v0.6.0-beta.1
+CLUSTERPEDIA_VERSIONS = v0.6.0-beta.1 v0.6.0
 RELEASE_ARCHS ?= amd64 arm64
 
 BUILDER_IMAGE ?= ""
