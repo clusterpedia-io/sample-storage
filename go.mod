@@ -1,4 +1,4 @@
-module github.com/clusterpedia-io/sample-storage-layer
+module github.com/clusterpedia-io/sample-storage
 
 go 1.19
 
