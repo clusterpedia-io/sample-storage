@@ -20,9 +20,9 @@ import (
 )
 
 const (
-	StorageName = "sample-storage-layer"
+	StorageName = "sample-storage"
 
-	defaultLogFileName = "/var/log/clusterpedia/sample-storage-layer.log"
+	defaultLogFileName = "/var/log/clusterpedia/sample-storage.log"
 )
 
 func RegisterStorageLayer() {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	plugin "github.com/clusterpedia-io/sample-storage-layer/storage"
+	plugin "github.com/clusterpedia-io/sample-storage/storage"
 )
 
 func init() {
